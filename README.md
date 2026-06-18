@@ -1,13 +1,3 @@
----
-title: FaceSwap
-emoji: ⚡
-colorFrom: blue
-colorTo: gray
-sdk: docker
-pinned: false
-license: mit
----
-
 # ⚡ FaceSwap — Free, Open-Source AI Face Swap
 
 > Swap any face. Free. Instant. No sign-up.  
