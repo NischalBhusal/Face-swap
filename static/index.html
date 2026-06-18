@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FaceSwap — Free AI Face Swap. Instant. No Sign-up.</title>
+  <meta name="description" content="Swap any face in seconds using open-source AI. Powered by InsightFace and GFPGAN. Completely free, no account required." />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<!-- ── Header ───────────────────────────────────────────── -->
+<header id="site-header">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#home" class="logo" aria-label="FaceSwap home">
+        <div class="logo-icon">⚡</div>
+        <span class="logo-wordmark">Face<span>Swap</span></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#how-it-works">How it Works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- ── Hero ─────────────────────────────────────────────── -->
+<section id="home">
+  <div class="container">
+    <div class="hero-badge">Open Source · No Sign-up · 100% Free</div>
+    <h1 class="hero-headline">
+      Swap Any Face.<br>
+      <span class="highlight">Free. Instant. No Sign-up.</span>
+    </h1>
+    <p class="hero-subheadline">
+      Powered by open-source AI — the same engine behind commercial tools,
+      available to you for free.
+    </p>
+    <a href="#swap-tool" class="btn-primary" id="hero-cta">Try It Now →</a>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">100<span>%</span></div>
+        <div class="stat-label">Free Forever</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">0</div>
+        <div class="stat-label">Data Stored</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">CPU</div>
+        <div class="stat-label">Only — No GPU needed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Swap Tool ─────────────────────────────────────────── -->
+<section id="swap-tool">
+  <div class="container">
+    <div class="section-label">Face Swap Tool</div>
+    <h2 style="margin-bottom:8px;">Upload &amp; Swap in Seconds</h2>
+    <p style="margin-bottom:32px;">Drop your photos below — results appear in seconds, processed entirely on our server.</p>
+
+    <div class="tool-card">
+
+      <!-- Upload zones -->
+      <div class="upload-grid">
+
+        <!-- Source -->
+        <div class="upload-zone" id="source-zone" role="button" aria-label="Upload source face image" tabindex="0">
+          <input type="file" id="source-input" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" aria-label="Source face file input" />
+          <div class="upload-placeholder" id="source-placeholder">
+            <div class="upload-icon">🧑</div>
+            <div class="upload-tag">Source Face</div>
+            <div class="upload-title">Drop your face photo here</div>
+            <div class="upload-hint">JPG · PNG · WebP · Max 10 MB</div>
+          </div>
+          <img class="upload-preview" id="source-preview" src="" alt="Source preview" style="display:none;" />
+          <div class="preview-overlay" id="source-overlay">
+            <span class="preview-overlay-text">🔄 Change photo</span>
+          </div>
+          <div class="face-badge" id="source-badge" style="display:none;"></div>
+        </div>
+
+        <!-- Target -->
+        <div class="upload-zone" id="target-zone" role="button" aria-label="Upload target image" tabindex="0">
+          <input type="file" id="target-input" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" aria-label="Target image file input" />
+          <div class="upload-placeholder" id="target-placeholder">
+            <div class="upload-icon">🖼️</div>
+            <div class="upload-tag">Target Image</div>
+            <div class="upload-title">Drop the photo to swap into</div>
+            <div class="upload-hint">JPG · PNG · WebP · Max 10 MB</div>
+          </div>
+          <img class="upload-preview" id="target-preview" src="" alt="Target preview" style="display:none;" />
+          <div class="preview-overlay" id="target-overlay">
+            <span class="preview-overlay-text">🔄 Change photo</span>
+          </div>
+          <div class="face-badge" id="target-badge" style="display:none;"></div>
+        </div>
+
+      </div><!-- /upload-grid -->
+
+      <!-- Controls -->
+      <div class="controls-row">
+        <label class="toggle-group" for="enhance-toggle">
+          <div class="toggle-switch">
+            <input type="checkbox" id="enhance-toggle" checked aria-label="Enhance quality with GFPGAN" />
+            <div class="toggle-track"></div>
+          </div>
+          <span class="toggle-label"><strong>Enhance quality</strong> (GFPGAN)</span>
+        </label>
+        <span id="file-status" style="font-size:.82rem;color:var(--text-muted);"></span>
+      </div>
+
+      <!-- Swap button -->
+      <div class="swap-btn-row">
+        <button class="btn-primary" id="swap-btn" disabled aria-label="Start face swap">
+          <div class="spinner" id="spinner" aria-hidden="true"></div>
+          <span id="swap-btn-label">⚡ Swap Face</span>
+        </button>
+      </div>
+
+      <!-- Result -->
+      <div id="result-area" aria-live="polite">
+        <div class="result-inner">
+          <div class="result-img-wrap">
+            <img id="result-img" src="" alt="Face swap result" />
+          </div>
+          <div class="result-meta">
+            <span>✓ Swap complete</span>
+            <span class="dot">•</span>
+            <span id="processing-time"></span>
+          </div>
+          <div class="result-actions">
+            <a id="download-btn" class="btn-primary" href="#" download="faceswap_result.jpg" aria-label="Download result image">
+              ⬇ Download Result
+            </a>
+            <button class="btn-secondary" id="swap-again-btn" aria-label="Reset and swap again">↺ Swap Again</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tool-card -->
+  </div>
+</section>
+
+<!-- ── How It Works ──────────────────────────────────────── -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <h2>How It Works</h2>
+      <p>Three simple steps — no account, no watermarks, no nonsense.</p>
+    </div>
+    <div class="steps-row">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-icon">📤</div>
+        <div class="step-title">Upload Photos</div>
+        <p class="step-desc">Upload a source face photo and the target image you want to swap into.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-icon">🤖</div>
+        <div class="step-title">AI Swaps</div>
+        <p class="step-desc">InsightFace detects and maps faces. The inswapper model seamlessly transfers the identity.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-icon">⬇</div>
+        <div class="step-title">Download</div>
+        <p class="step-desc">Preview the result instantly and download your high-quality swapped image.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ───────────────────────────────────────────────── -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header">
+      <h2>Frequently Asked Questions</h2>
+      <p>Everything you need to know about FaceSwap.</p>
+    </div>
+
+    <div class="faq-list" role="list">
+
+      <div class="faq-item" role="listitem">
+        <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq-answer-1">
+          <span>Is it really free?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer" id="faq-answer-1">
+          Yes, completely free. There's no subscription, no credits, and no hidden fees. The app is built entirely on open-source models (InsightFace + GFPGAN) and you can self-host it for free.
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq-answer-2">
+          <span>Do you store my photos?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer" id="faq-answer-2">
+          No. Your images are written to temporary files during processing and immediately deleted after the swap is returned. Nothing is stored on disk or logged beyond server error messages.
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq-answer-3">
+          <span>What image formats are supported?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer" id="faq-answer-3">
+          JPEG, PNG, and WebP are accepted. Maximum file size is 10 MB per image. The result is always returned as a JPEG.
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq-answer-4">
+          <span>Why does it sometimes fail?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer" id="faq-answer-4">
+          The model requires a clearly visible, reasonably front-facing face to detect. Sunglasses, extreme angles, heavy blur, or very small faces may cause detection to fail. Try a clearer, better-lit photo.
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq-answer-5">
+          <span>Can I swap multiple faces?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer" id="faq-answer-5">
+          Yes — the app swaps the source face onto <em>every</em> detected face in the target image automatically. Group photos work well as long as faces are clearly visible.
+        </div>
+      </div>
+
+    </div><!-- /faq-list -->
+  </div>
+</section>
+
+<!-- ── Footer ────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">⚡ FaceSwap — Built with InsightFace + GFPGAN — open source</div>
+        <div class="footer-disclaimer">For creative use only. Do not use for non-consensual deepfakes or to impersonate real individuals without permission.</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/deepinsight/insightface" target="_blank" rel="noopener">GitHub</a>
+        <a href="#faq">Privacy Policy</a>
+        <a href="#faq">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Toast container ───────────────────────────────────── -->
+<div id="toast-container" aria-live="assertive" aria-atomic="true"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

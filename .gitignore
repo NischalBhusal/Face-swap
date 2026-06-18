@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Models (large binaries — track with Git LFS or download at build time)
+models/*.onnx
+gfpgan/weights/*.pth
+*.onnx
+*.pth
+
+# InsightFace auto-download cache
+~/.insightface/
+
+# Temp / OS
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Docker
+.dockerignore
