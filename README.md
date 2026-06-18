@@ -11,12 +11,12 @@
 
 ## Features
 
-- 🔄 **One-click face swap** — upload source + target, get result in seconds
-- 🧠 **Multi-face support** — swaps the source identity onto every detected face in the target image
-- ✨ **GFPGAN enhancement** — optional quality boost via GFPGANv1.4
-- 🖥️ **CPU-only** — no GPU required; runs on any machine
-- 🔒 **Privacy-first** — images are processed in memory and deleted immediately
-- 🚀 **Self-hostable** — Docker + Hugging Face Spaces ready
+- **One-click face swap** — upload source + target, get result in seconds
+- **Multi-face support** — swaps the source identity onto every detected face in the target image
+- **GFPGAN enhancement** — optional quality boost via GFPGANv1.4
+- **CPU-only** — no GPU required; runs on any machine
+- **Privacy-first** — images are processed in memory and deleted immediately
+- **Self-hostable** — Docker + Hugging Face Spaces ready
 
 ---
 
@@ -73,7 +73,7 @@ uvicorn main:app --reload --port 8000
 ```
 
 Open **http://localhost:8000** in your browser.
-
+Check it out here **https://huggingface.co/spaces/skelon/faceswap**
 ---
 
 ## API Reference
